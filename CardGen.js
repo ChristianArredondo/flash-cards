@@ -4,10 +4,12 @@ var fs = require('fs');
 const chalk = require('chalk');
 //Define Basic Card and Cloze Card files:
 var BasicFC = require('./BasicCard.js');
-var ClozeFC = require('./clozeCard.js');
+var ClozeFC = require('./ClozeCard.js');
 //Define variables needed
 var userChoice = "";
 var userLock = 0;
+var counter = 0;
+var dataArr = [];
 
 //define user input
 initiator();
@@ -26,7 +28,7 @@ inq.prompt([
     userChoice = answers.selection;
     console.log("\n");
     console.log("You have chosen " + answers.selection);
-        // console.log('hi');
+        // console.log(answers.selection);
     generateCard(userChoice);
 })
 }
@@ -36,7 +38,7 @@ inq.prompt([
 
 
 function generateCard(userChoice){
-    if(userLock === 1){
+    if(userLock != 0){
         readCard(userChoice);
     }
     else{
@@ -53,6 +55,30 @@ function generateCard(userChoice){
     }
 }
 
+function cardReader(data){
+    dataArr = data.split(",");
+    if(counter*2 < dataArr.length){
+        inq.prompt([
+            {   type: "list",
+                message: dataArr[0 + 2*counter],
+                choices: ["flip","skip"],
+                name: "test"
+            }
+        ]).then((answers)=>{
+                if(answers.test === "flip"){
+                    console.log(dataArr[1 + 2*counter]);
+                    console.log("\n");
+                    counter++;
+                    cardReader(data);
+                }
+        })
+    }
+    else{
+        console.log("You went through all your flash cards!");
+    }
+}
+
+
 function cardAdder(userChoice){
     inq.prompt([
                     { type:"confirm",
@@ -61,13 +87,14 @@ function cardAdder(userChoice){
                     name:"add"
                     }
                 ]).then((answers)=>{
-                    console.log(answers.add);
+                    // console.log(answers.add);
                     if(answers.add === true){
-                        console.log("hi");
+                        // console.log("hi");
                         generateCard(userChoice);
                     }
                     else{
-                        userLock = 1;
+                        userLock++;
+                        generateCard(userChoice);
                     }
                 })
 };
@@ -85,7 +112,7 @@ inq.prompt([
                     }
                     ]).then((answers)=>{
                         var bCard = BasicFC(answers.front, answers.back);
-                        console.log(bCard);
+                        // console.log(bCard);
                         cardAdder(userChoice);
                     });
 }
@@ -103,7 +130,7 @@ function createCloze(){
                     }
                     ]).then((answers)=>{
                         var cCard = ClozeFC(answers.full, answers.cloze);
-                        console.log(cCard);
+                        // console.log(cCard);
                         cardAdder(userChoice);
                     });
 }
@@ -115,7 +142,7 @@ if(userChoice === "Basic"){
                             console.log(error);
                         }
                         else{
-                            
+                            cardReader(data);
                         }
     });
 }
@@ -125,7 +152,7 @@ else{
                             console.log(error);
                         }
                         else{
-                            
+                            cardReader(data);
                         }
     });
 }
