@@ -9,4 +9,7 @@ function BasicFC(front,back){
     }
     this.front = front;
     this.back = back;
+    fs.appendFile('Bcards.txt', this.front + "," + this.back + ",");
 }
+
+module.exports = BasicFC;

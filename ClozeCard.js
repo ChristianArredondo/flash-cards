@@ -5,7 +5,7 @@ var partial = "";
 
 //create function to check cloze, store as prototype
 
-ClozeFC.prototype.clozeChecker = function(cloze,fullText){
+ClozeFC.prototype.clozeChecker = function(fullText, cloze){
     if(fullText.includes(cloze) === true){
         return fullText;
     }
@@ -15,13 +15,15 @@ ClozeFC.prototype.clozeChecker = function(cloze,fullText){
 
 }
 
-function ClozeFC(cloze,fullText){
+function ClozeFC(fullText, cloze){
     if(!(this instanceof ClozeFC)){
-        return new ClozeFC(cloze,fullText);
+        return new ClozeFC(fullText, cloze);
         this.cloze = cloze;
-        this.fullText = this.clozeChecker(cloze,fullText);
+        this.fullText = this.clozeChecker(fullText, cloze);
         this.partial = this.fullText.replace(cloze,"_________");
+        fs.appendFile('Ccards.txt', this.cloze + "," + this.partial + ",");
     }
 
 }
 
+module.exports = ClozeFC;
