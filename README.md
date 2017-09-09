@@ -13,7 +13,7 @@ When no new cards are added, all previously made flash cards are reviewed in seq
 
 
 The "Cloze" flashcard option has a functionality that is similar to the "Basic" option, except that the full text must be written in the front prompt, and the answer at the back must exists in the front prompt text.
-When the prompt conditions are satisfied, the full text is displayed during review, with the answer replaced by a blank. Flipping the card reviews the answer:
+When the prompt conditions are satisfied, the full text is displayed during review, with the answer replaced by a blank. Flipping the card reveals the answer:
 
 ![Cloze Card Demo](https://github.com/grantrzchan/flash-cards/blob/master/.gitignore/readme_screenshots/img4.png "Cloze Example")
 
