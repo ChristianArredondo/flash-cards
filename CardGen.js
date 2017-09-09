@@ -16,8 +16,10 @@ initiator();
 
 
 function initiator(){
-//Always reinitialize userLock
+//Always reinitialize userChoice, userLock and counter
+userChoice = "";
 userLock = 0;
+counter = 0;
 inq.prompt([
 {   type: "list",
     message: "Please choose the card type:",
@@ -27,7 +29,8 @@ inq.prompt([
 ]).then((answers)=>{
     userChoice = answers.selection;
     console.log("\n");
-    console.log("You have chosen " + answers.selection);
+    console.log(chalk.yellow("You have chosen " + answers.selection));
+    console.log("\n");
         // console.log(answers.selection);
     generateCard(userChoice);
 })
@@ -68,11 +71,28 @@ function cardReader(data){
                     counter++;
                     cardReader(data);
                 }
+                else{
+                    console.log("\n");
+                    counter++;
+                    cardReader(data);
+                }
         })
     }
     else{
-        console.log(dataArr.length);
-        console.log("You went through all your flash cards!");
+        console.log(chalk.green("You went through all your flash cards!"));
+        console.log('\n');
+        inq.prompt([
+        {   type: "list",
+            message: "Try again with more cards?",
+            choices: ["Yes Please!","Nope"],
+            name: "startagain"
+        }
+    ]).then((answers)=>{
+        if(answers.startagain === "Yes Please!"){
+            console.log('\n');
+            initiator();
+        }
+})
     }
 }
 
@@ -87,11 +107,12 @@ function cardAdder(userChoice){
                 ]).then((answers)=>{
                     // console.log(answers.add);
                     if(answers.add === true){
-                        // console.log("hi");
+                        console.log('\n');
                         generateCard(userChoice);
                     }
                     else{
                         userLock++;
+                        console.log('\n');
                         generateCard(userChoice);
                     }
                 })
@@ -100,17 +121,17 @@ function cardAdder(userChoice){
 function createBasic(){
 inq.prompt([
                     {   type: "input",
-                        message: "Please enter the question you would like to ask on the front of the card:",
+                        message: chalk.cyan("Please enter the question you would like to ask on the front of the card:"),
                         name: "front"
                     },
                     {
                         type: "input",
-                        message: "Please enter the back of the card:",
+                        message: chalk.cyan("Please enter the back of the card:"),
                         name: "back"
                     }
                     ]).then((answers)=>{
                         var bCard = BasicFC(answers.front, answers.back);
-                        console.log(bCard);
+                        console.log('\n');
                         cardAdder(userChoice);
                     });
 }
@@ -118,17 +139,17 @@ inq.prompt([
 function createCloze(){
     inq.prompt([
                     {   type: "input",
-                        message: "Please enter the question you would like to ask on the front of the card:",
+                        message: chalk.magenta("Please enter the question you would like to ask on the front of the card:"),
                         name: "full"
                     },
                     {
                         type: "input",
-                        message: "Please enter the back of the card:",
+                        message: chalk.magenta("Please enter the back of the card:"),
                         name: "cloze"
                     }
                     ]).then((answers)=>{
                         var clCard = ClozeFC(answers.full, answers.cloze);
-                        console.log(clCard);
+                        console.log('\n');
                         cardAdder(userChoice);
                     });
 }
