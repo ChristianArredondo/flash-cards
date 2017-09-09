@@ -4,6 +4,7 @@ var front = "";
 var back = "";
 
 function BasicFC(front,back){
+    //BasicFC constructor function
     if(!(this instanceof BasicFC)){
         return new BasicFC(front,back);
     }

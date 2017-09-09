@@ -34,9 +34,6 @@ inq.prompt([
 }
 
 
-
-
-
 function generateCard(userChoice){
     if(userLock != 0){
         readCard(userChoice);
@@ -57,7 +54,7 @@ function generateCard(userChoice){
 
 function cardReader(data){
     dataArr = data.split(",");
-    if(counter*2 < dataArr.length){
+    if(counter*2 + 1 < dataArr.length){
         inq.prompt([
             {   type: "list",
                 message: dataArr[0 + 2*counter],
@@ -74,6 +71,7 @@ function cardReader(data){
         })
     }
     else{
+        console.log(dataArr.length);
         console.log("You went through all your flash cards!");
     }
 }
@@ -112,7 +110,7 @@ inq.prompt([
                     }
                     ]).then((answers)=>{
                         var bCard = BasicFC(answers.front, answers.back);
-                        // console.log(bCard);
+                        console.log(bCard);
                         cardAdder(userChoice);
                     });
 }
@@ -129,8 +127,8 @@ function createCloze(){
                         name: "cloze"
                     }
                     ]).then((answers)=>{
-                        var cCard = ClozeFC(answers.full, answers.cloze);
-                        // console.log(cCard);
+                        var clCard = ClozeFC(answers.full, answers.cloze);
+                        console.log(clCard);
                         cardAdder(userChoice);
                     });
 }
