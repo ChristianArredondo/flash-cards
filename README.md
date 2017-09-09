@@ -7,7 +7,7 @@ An example of the "Basic" option is demonstrated below. The subsequent prompts a
 
 ![Add Card](https://github.com/grantrzchan/flash-cards/blob/master/.gitignore/readme_screenshots/img2.png "Add another card")
 
-When no new cards are added, all previously made flash cards are reviewed in sequence. At the end of the review sequence, a prompt appears that allow users to add more flashcards:
+When no new cards are added, all previously made flash cards are reviewed in sequence.
 
 ![Try Again](https://github.com/grantrzchan/flash-cards/blob/master/.gitignore/readme_screenshots/img3.png "Restart and add more cards")
 
