@@ -1,7 +1,7 @@
 This flash card application, built with node.js and the packages request, inquirer and chalk, allow users to create multiple flash cards with ease. The flashcards come in two varieties: "Basic" and "Cloze".
 A screenshot of the starting menu is shown below:
 
-
+![Alt text](/.gitignore/readme_screenshots/img1.jpg?raw=true "Starting Menu")
 
 An example of the "Basic" option is demonstrated below. The subsequent prompts allow multiple flashcards to be added in succession. When no new cards are added, all previously made flash cards are reviewed in sequence:
 
